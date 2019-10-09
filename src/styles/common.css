@@ -1,0 +1,5 @@
+@import 'css/reset.css';
+@import 'css/style.css';
+body {
+  background: url('~@/static/images/bg.png');
+}
