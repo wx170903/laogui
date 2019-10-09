@@ -58,7 +58,9 @@
     },
     created() {
       if(this.$router.path !== '/'){//刷新浏览器储存值
-        this.OnIndex = Number(localStorage.getItem('activeIndex'));
+        if(localStorage.getItem('activeIndex')) {
+          this.OnIndex = Number(localStorage.getItem('activeIndex'));
+        }
       }
     },
     methods: {
@@ -78,8 +80,7 @@
 </script>
 
 <style lang="less">
-  @import "~@/styles/common";
-  
+  /*@import "~@/styles/common";*/
   #app {
     width: 1920px;
     height: 1080px;

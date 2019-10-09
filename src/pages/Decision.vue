@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div ref="box">
     <div class="pd-sider lt">
       <div class="pd-moduhd clearfix">
         <span>目标进展</span>
@@ -40,16 +40,12 @@
         <div class="pd-tithd clearfix">
         <span>“无废城市”建设指标</span>
          <div  class="pd-selGD fl"  >
-          
            <div class="Pbox">
             <img src="~@/static/images/dzic.png" alt="">
-               <p class="sic1" @click="showSel">区域：广东省</p>
+               <p class="sic1" @click="showSel">区域：{{cityActive}}</p>
            </div>
-        
           <ul v-show='IsShow'>
-            <li>广东省</li>
-            <li>广州市</li>
-            <li>深圳市</li>
+            <li v-for="item in cityList" @click="selectCity(item)">{{item}}</li>
           </ul>
         </div >
         <div class="swiper-pagination"></div>
@@ -392,6 +388,7 @@ export default {
   name: "Decision",
   data() {
     return {
+      cityList:['广东省','广州市','深圳市'],
       swiperOption: {
         pagination: {
             el: '.swiper-pagination',
@@ -407,21 +404,27 @@ export default {
       swiperOption2: {
         direction : 'vertical',//垂直
         pagination: {
-          el: '.swiper-pagination2',
+          el: '.swiper-pagination',
           clickable :true,
         },
         autoplay: {
-          delay: 30000,
+          delay: 2000,
           stopOnLastSlide: false,
           disableOnInteraction: false,
         },
         loop:true
       },
       IsShow:false,  //多选下拉显示
-        // active:{
-        //   display:''
-        // }
+      cityActive:"广东省"
     };
+  },
+  created() {
+    document.addEventListener('click',(e)=>{
+      console.log(e.target.getAttribute('class'));
+      if(e.target.getAttribute('class') !== 'sic1'){
+          this.IsShow = false
+      }
+    })
   },
   computed: {
     swiper() {
@@ -432,7 +435,12 @@ export default {
     showSel() {
       // this.active.display=this.active.display=== 'none' ? '' :'block'
       this.IsShow=!this.IsShow //多选下拉显示
-
+      
+    },
+    selectCity(active) {
+      event.preventDefault()
+      this.cityActive = active;
+      this.IsShow=!this.IsShow
     }
   },
   mounted() {

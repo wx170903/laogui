@@ -5,6 +5,7 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 Vue.use(VueAwesomeSwiper) //轮播图
 import 'swiper/css/swiper.css'
+import '@/styles/common.less'
 
 Vue.config.productionTip = false
 
